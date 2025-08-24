@@ -1,3 +1,3 @@
 ﻿namespace CW.Core.Exceptions;
 
-public class CWExceptionBase(string message) : Exception(message);
+public class CwExceptionBase(string message) : Exception(message);

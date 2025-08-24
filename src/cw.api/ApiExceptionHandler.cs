@@ -4,20 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CW.Api;
 
-public class ApiExceptionHandler : IExceptionHandler
+public class ApiExceptionHandler(IProblemDetailsService problemDetailsService) : IExceptionHandler
 {
-    private readonly IProblemDetailsService _problemDetailsService;
-
-    public ApiExceptionHandler(IProblemDetailsService problemDetailsService)
-    {
-        _problemDetailsService = problemDetailsService;
-    }
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         if (exception is InputValidationException inputValidationException)
         {
             httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+            return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
             {
                 HttpContext = httpContext,
                 Exception = exception,
@@ -31,7 +25,7 @@ public class ApiExceptionHandler : IExceptionHandler
         else
         {
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+            return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
             {
                 HttpContext = httpContext,
                 Exception = exception,

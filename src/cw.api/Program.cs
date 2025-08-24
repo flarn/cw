@@ -37,9 +37,9 @@ app.MapPost("/orders", async ([FromBody] UpdateOrderRequest updateOrderRequest, 
     if (ValidationHelper.Validate(updateOrderRequest, out var validationErrors) == false)
         ValidationHelper.ThrowValidationException(validationErrors);
 
-
-    await busSender.SendMessage("orders", new OrderUpdatedEvent(updateOrderRequest.Id, updateOrderRequest.Text, updateOrderRequest.Count, updateOrderRequest.TotalAmount, TimeProvider.System.GetUtcNow()), cancellationToken);
+    await busSender.SendMessage("orders",
+        new OrderUpdatedEvent(updateOrderRequest.Id, updateOrderRequest.Text, updateOrderRequest.Count, updateOrderRequest.TotalAmount, TimeProvider.System.GetUtcNow()), cancellationToken);
     return Results.Accepted();
-}).Produces(202);
+}).Produces(202).ProducesProblem(400).ProducesProblem(500);
 
 app.Run();
