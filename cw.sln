@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cw.AppHost", "src\cw.AppHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cw.ServiceDefaults", "src\cw.ServiceDefaults\cw.ServiceDefaults.csproj", "{042FFFE4-5305-469A-5148-72910A66D782}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cw.infra.servicebus", "src\cw.infra.servicebus\cw.infra.servicebus.csproj", "{52440800-C589-4EA5-B7BD-2E43C314EA2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{042FFFE4-5305-469A-5148-72910A66D782}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{042FFFE4-5305-469A-5148-72910A66D782}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{042FFFE4-5305-469A-5148-72910A66D782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52440800-C589-4EA5-B7BD-2E43C314EA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52440800-C589-4EA5-B7BD-2E43C314EA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52440800-C589-4EA5-B7BD-2E43C314EA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52440800-C589-4EA5-B7BD-2E43C314EA2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
