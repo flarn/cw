@@ -1,4 +1,5 @@
-﻿using CW.Core.interfaces;
+﻿using CW.Core;
+using CW.Core.interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -16,6 +17,14 @@ public static class Configuration
     public static IHostApplicationBuilder WithServicebusSender(this IHostApplicationBuilder builder)
     {
         builder.Services.AddSingleton<IBusSender, ServiceBusSender>();
+        return builder;
+    }
+
+    public static IHostApplicationBuilder WithServicebusConsumer(this IHostApplicationBuilder builder)
+    {
+        builder.Services.AddSingleton<IBusConsumer, ServicebusConsumer>();
+
+        builder.Services.Configure<SubscriberConfiguration>(builder.Configuration.GetSection(nameof(SubscriberConfiguration)));
         return builder;
     }
 }

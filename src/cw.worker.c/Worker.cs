@@ -1,23 +1,39 @@
+using CW.Core.Events;
+using CW.Core.interfaces;
+
 namespace cw.worker.c;
 
 public class Worker : BackgroundService
 {
+    private readonly IBusConsumer _busConsumer;
+    private readonly IExternalSystem _externalSystem;
     private readonly ILogger<Worker> _logger;
+    private readonly PeriodicTimer _timer;
 
-    public Worker(ILogger<Worker> logger)
+    public Worker(IBusConsumer busConsumer, IExternalSystem externalSystem, ILogger<Worker> logger)
     {
+        _busConsumer = busConsumer;
+        _externalSystem = externalSystem;
         _logger = logger;
+        _timer = new PeriodicTimer(TimeSpan.FromSeconds(30));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        _logger.LogInformation("Started Worker {workerName}", this.GetType().FullName);
+
+        while (await _timer.WaitForNextTickAsync(stoppingToken))
         {
-            if (_logger.IsEnabled(LogLevel.Information))
+            _logger.LogInformation("Started process messages");
+
+            await _busConsumer.ProcessMessages<OrderUpdatedEvent>(async (message) =>
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
-            await Task.Delay(1000, stoppingToken);
+                await _externalSystem.SyncOrder(message, stoppingToken);
+            });
+
+            _logger.LogInformation("Completed process messages");
         }
+
+        _logger.LogInformation("Stopped Worker {workerName}", this.GetType().FullName);
     }
 }
