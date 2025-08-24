@@ -50,7 +50,6 @@ namespace CW.Worker.Shared
 
                         //order exists in system, dont appned it
                         return true;
-                        break;
                     }
                 }
             }
@@ -60,7 +59,7 @@ namespace CW.Worker.Shared
 
         private static async Task CreateOrder(OrderUpdatedEvent orderUpdatedEvent, string filePath)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 
             await using var writer = new StreamWriter(filePath);
             await using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
