@@ -31,7 +31,7 @@ public class ApiExceptionHandler(IProblemDetailsService problemDetailsService) :
                 Exception = exception,
                 ProblemDetails = new ProblemDetails
                 {
-                    Title = "Unhandled errror",
+                    Title = "Unhandled error",
                     Status = StatusCodes.Status500InternalServerError,
                 },
             });
