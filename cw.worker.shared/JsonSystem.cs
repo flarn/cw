@@ -6,11 +6,14 @@ namespace CW.Worker.Shared;
 
 public class JsonSystem : IExternalSystem
 {
+    public string DirectoryPath => Path.Combine("..", "externalSystem", "json");
+
     public async Task SyncOrder(OrderUpdatedEvent orderUpdatedEvent, CancellationToken cancellationToken)
     {
-        var directoryPath = Path.Combine("..", "externalSystem", "json");
+        if (!Directory.Exists(DirectoryPath))
+            Directory.CreateDirectory(DirectoryPath);
 
-        var filePath = Path.Combine(directoryPath, $"{orderUpdatedEvent.Id}.json");
+        var filePath = Path.Combine(DirectoryPath, $"{orderUpdatedEvent.Id}.json");
 
         if (File.Exists(filePath))
         {

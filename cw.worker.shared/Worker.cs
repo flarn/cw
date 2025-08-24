@@ -12,12 +12,12 @@ public class Worker : BackgroundService
     private readonly ILogger<Worker> _logger;
     private readonly PeriodicTimer _timer;
 
-    public Worker(IBusConsumer busConsumer, IExternalSystem externalSystem, ILogger<Worker> logger)
+    public Worker(IBusConsumer busConsumer, IExternalSystem externalSystem, TimeProvider timeProvider, ILogger<Worker> logger)
     {
         _busConsumer = busConsumer;
         _externalSystem = externalSystem;
         _logger = logger;
-        _timer = new PeriodicTimer(TimeSpan.FromSeconds(30));
+        _timer = new PeriodicTimer(TimeSpan.FromSeconds(30), timeProvider);
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

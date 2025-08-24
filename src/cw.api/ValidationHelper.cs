@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CW.Api;
 
-internal static class ValidationHelper
+public static class ValidationHelper
 {
-    internal static bool Validate<TRequest>(TRequest updateOrderRequest, out List<ValidationResult> validationErrors)
+    public static bool Validate<TRequest>(TRequest updateOrderRequest, out List<ValidationResult> validationErrors)
     {
         var errors = new List<ValidationResult>();
 
