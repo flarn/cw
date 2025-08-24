@@ -1,7 +1,6 @@
-using cw.worker.c;
-using cw.worker.shared;
 using CW.Core.interfaces;
 using CW.Infra.ServiceBus;
+using CW.Worker.Shared;
 
 var builder = Host.CreateApplicationBuilder(args);
 

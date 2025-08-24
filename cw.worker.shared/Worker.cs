@@ -1,7 +1,9 @@
 using CW.Core.Events;
 using CW.Core.interfaces;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace cw.worker.c;
+namespace CW.Worker.Shared;
 
 public class Worker : BackgroundService
 {
@@ -20,20 +22,17 @@ public class Worker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Started Worker {workerName}", this.GetType().FullName);
+        _logger.LogInformation("Started Worker {workerName}", _externalSystem.GetType().FullName);
 
         while (await _timer.WaitForNextTickAsync(stoppingToken))
         {
             _logger.LogInformation("Started process messages");
 
-            await _busConsumer.ProcessMessages<OrderUpdatedEvent>(async (message) =>
-            {
-                await _externalSystem.SyncOrder(message, stoppingToken);
-            });
+            await _busConsumer.ProcessMessages<OrderUpdatedEvent>(async (message) => { await _externalSystem.SyncOrder(message, stoppingToken); });
 
             _logger.LogInformation("Completed process messages");
         }
 
-        _logger.LogInformation("Stopped Worker {workerName}", this.GetType().FullName);
+        _logger.LogInformation("Stopped Worker {workerName}", _externalSystem.GetType().FullName);
     }
 }
