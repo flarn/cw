@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\cw.worker.shared\cw.worker.shared.csproj" />
+      <ProjectReference Include="..\..\src\cw.worker.shared\cw.worker.shared.csproj" />
     </ItemGroup>
 
 </Project>

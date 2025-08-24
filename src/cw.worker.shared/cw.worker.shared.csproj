@@ -13,6 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\cw.core\cw.core.csproj" />
 	  <ProjectReference Include="..\src\cw.core\cw.core.csproj" />
 	</ItemGroup>
 

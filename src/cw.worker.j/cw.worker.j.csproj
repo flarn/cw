@@ -15,5 +15,6 @@
     <ProjectReference Include="..\..\cw.worker.shared\cw.worker.shared.csproj" />
     <ProjectReference Include="..\cw.infra.servicebus\cw.infra.servicebus.csproj" />
     <ProjectReference Include="..\cw.ServiceDefaults\cw.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\cw.worker.shared\cw.worker.shared.csproj" />
   </ItemGroup>
 </Project>
